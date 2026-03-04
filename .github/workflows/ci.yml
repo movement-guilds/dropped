@@ -1,0 +1,50 @@
+name: CI
+
+on:
+  push:
+    branches: [main, staging]
+  pull_request:
+    branches: [main, staging]
+
+jobs:
+  ci:
+    name: CI
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Type check
+        run: npm run typecheck
+
+      - name: Build
+        # Fork PRs don't receive secrets — skip build step for forks
+        # Lint and typecheck still run. Maintainer must approve workflow run for full CI.
+        if: github.event.pull_request.head.repo.fork != true
+        env:
+          DISCORD_CLIENT_ID: ${{ secrets.DISCORD_CLIENT_ID }}
+          DISCORD_CLIENT_SECRET: ${{ secrets.DISCORD_CLIENT_SECRET }}
+          NEXTAUTH_SECRET: ${{ secrets.NEXTAUTH_SECRET }}
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
+          DISCORD_GUILD_ID: ${{ secrets.DISCORD_GUILD_ID }}
+          DISCORD_ADMIN_ROLE_ID: ${{ secrets.DISCORD_ADMIN_ROLE_ID }}
+          DISCORD_MOD_ROLE_ID: ${{ secrets.DISCORD_MOD_ROLE_ID }}
+          MOVEMENT_RPC_MAINNET: ${{ secrets.MOVEMENT_RPC_MAINNET }}
+          MOVEMENT_RPC_TESTNET: ${{ secrets.MOVEMENT_RPC_TESTNET }}
+          REQUIRE_WALLET_LINK: "false"
+        run: npm run build
+
+      - name: Supabase DB Lint
+        if: github.event.pull_request.head.repo.fork != true
+        run: npx supabase db lint

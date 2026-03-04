@@ -1,0 +1,16 @@
+# All changes: default to org admins
+*                           @movement-guilds/admins
+
+# Auth and security — always require owner review
+/lib/auth.ts                @movement-guilds/admins
+/lib/auth-helpers.ts        @movement-guilds/admins
+/lib/wallet-link.ts         @movement-guilds/admins
+/middleware.ts              @movement-guilds/admins
+/next.config.ts             @movement-guilds/admins
+/.env.example               @movement-guilds/admins
+
+# All API routes — require owner review
+/app/api/                   @movement-guilds/admins
+
+# Database migrations — require owner review
+/supabase/migrations/       @movement-guilds/admins
