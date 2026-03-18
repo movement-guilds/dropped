@@ -5,7 +5,7 @@ Next.js 15 template for Movement Guild apps. Pre-wired with Discord OAuth, Movem
 ## What's Included
 
 - **Discord OAuth** via next-auth — guild membership verified on sign-in, roles cached in JWT
-- **Movement Wallet** — @aptos-labs/wallet-adapter-react pre-configured
+- **Movement Wallet** — @moveindustries/wallet-adapter-react pre-configured
 - **Supabase** — per-app Postgres schema, service role server actions
 - **Wallet ↔ Discord linking** — opt-in via `REQUIRE_WALLET_LINK=true`
 - **Shared config** — ESLint, Prettier, TypeScript, Tailwind via `@movement-guilds/shared-config`

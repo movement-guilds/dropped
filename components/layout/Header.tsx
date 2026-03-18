@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { LoginButton } from "@/components/auth/LoginButton";
+import { ConnectButton } from "@/components/wallet/ConnectButton";
 
 export function Header() {
   return (
@@ -7,7 +8,10 @@ export function Header() {
       <Link href="/" className="font-bold text-white text-lg">
         Movement Guilds
       </Link>
-      <LoginButton />
+      <div className="flex items-center gap-4">
+        <ConnectButton />
+        <LoginButton />
+      </div>
     </header>
   );
 }

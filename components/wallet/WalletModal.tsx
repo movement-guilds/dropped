@@ -1,6 +1,6 @@
 "use client";
 
-import { useWallet } from "@aptos-labs/wallet-adapter-react";
+import { useWallet } from "@moveindustries/wallet-adapter-react";
 import { useState } from "react";
 
 export function WalletModal({ onClose }: { onClose: () => void }) {

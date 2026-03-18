@@ -1,6 +1,6 @@
 "use client";
 
-import { useWallet } from "@aptos-labs/wallet-adapter-react";
+import { useWallet } from "@moveindustries/wallet-adapter-react";
 import { useWalletLink } from "@/hooks/useWalletLink";
 import { ConnectButton } from "./ConnectButton";
 

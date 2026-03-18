@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useSession } from "next-auth/react";
-import { useWallet } from "@aptos-labs/wallet-adapter-react";
+import { useWallet } from "@moveindustries/wallet-adapter-react";
 
 export type WalletLinkStatus = "idle" | "linking" | "linked" | "error";
 
@@ -57,7 +57,7 @@ export function useWalletLink() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          walletAddress: account.address,
+          walletAddress: account.address.toString(),
           signature,
           nonce,
         }),
@@ -68,7 +68,7 @@ export function useWalletLink() {
         throw new Error(err.error ?? "Link failed");
       }
 
-      setLinkedAddress(account.address);
+      setLinkedAddress(account.address.toString());
       setStatus("linked");
     } catch (e) {
       setStatus("error");
